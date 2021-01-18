@@ -1,0 +1,36 @@
+{
+  "manifest_version": 2,
+  "name": "Chrome Extension Boilerplate",
+  "description": "Description of the extension ",
+  "author": "Trouni Tiet",
+  "version": "1.0.0",
+  "permissions": [
+    "tabs"
+  ],
+  "icons": {
+    "16": "images/icon16.png",
+    "32": "images/icon32.png",
+    "48": "images/icon48.png",
+    "128": "images/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "scripts/content.js"
+      ]
+    }
+  ],
+  "background": {
+    "scripts": [
+      "scripts/background.js"
+    ],
+    "persistent": false
+  },
+  "browser_action": {
+    "default_popup": "",
+    "default_title": ""
+  }
+}
