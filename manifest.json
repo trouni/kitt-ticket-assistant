@@ -16,10 +16,11 @@
   "content_scripts": [
     {
       "matches": [
-        "<all_urls>"
+        "https://kitt.lewagon.com/camps/*"
       ],
       "js": [
-        "scripts/content.js"
+        "scripts/content.js",
+        "assets/style.css"
       ]
     }
   ],
