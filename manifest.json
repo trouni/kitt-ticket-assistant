@@ -19,7 +19,9 @@
         "https://kitt.lewagon.com/camps/*"
       ],
       "js": [
-        "scripts/content.js",
+        "scripts/content.js"
+      ],
+      "css": [
         "assets/style.css"
       ]
     }
