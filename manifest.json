@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,
-  "name": "Chrome Extension Boilerplate",
-  "description": "Description of the extension ",
+  "name": "Kitt Ticket Assistant",
+  "description": "A voice assistant for Kitt ticketing system.",
   "author": "Trouni Tiet",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "permissions": [
     "tabs"
   ],
