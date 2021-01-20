@@ -1,1 +1,1 @@
-# Chrome Extension Boilerplate
+# Kitt Ticket Assistant
