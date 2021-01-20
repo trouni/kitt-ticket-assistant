@@ -3,7 +3,7 @@
   "name": "Kitt Ticket Assistant",
   "description": "Voice assistant for Kitt's ticketing system.",
   "author": "Trouni Tiet",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "icons": {
     "128": "images/lewagon.png"
   },
