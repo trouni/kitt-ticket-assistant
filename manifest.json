@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Kitt Ticket Assistant",
-  "description": "A voice assistant for Kitt ticketing system.",
+  "description": "Voice assistant for Kitt's ticketing system.",
   "author": "Trouni Tiet",
   "version": "0.0.1",
   "icons": {
