@@ -79,6 +79,8 @@ const removeModal = (_) => {
   if (assistantWrapper) {
     clearInterval(window.kittNotification);
     window.speechSynthesis.cancel();
+    beep.pause();
+    beep.currentTime = 0;
     assistantWrapper.remove();
   }
 };
