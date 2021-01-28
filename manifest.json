@@ -3,7 +3,7 @@
   "name": "Kitt Ticket Assistant",
   "description": "Voice assistant for Kitt's ticketing system to reduce the risk of a ticket going unnoticed for too long.",
   "author": "Trouni Tiet",
-  "version": "0.1",
+  "version": "0.2",
   "icons": {
     "128": "images/lewagon_128px.png"
   },
@@ -13,7 +13,7 @@
   "content_scripts": [
     {
       "matches": [
-        "https://kitt.lewagon.com/camps/*/tickets"
+        "*://kitt.lewagon.com/camps/*/tickets*"
       ],
       "js": [
         "scripts/content.js"
