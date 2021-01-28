@@ -16,6 +16,8 @@ The Kitt ticket assistant will help you stay chill about those Slack notificatio
 - In the absence of your confirmation, a synthetic voice will notify you that a ticket is waiting for you. It will repeat that message every 30 seconds until you dismiss the ticket assistant.
 - Note: the assistant will not notify you if you are being assigned a ticket right after finishing one. Since you would already be on the tickets page marking the last ticket as completed, the assistant assumes that you've already seen that next one coming for you, and will not bother you.
 
+![Preview of the extension](assets/preview.jpg)
+
 ### Installation
 
 1. Install the extension from the [Chrome Web Store](https://chrome.google.com/webstore/detail/kitt-ticket-assistant/gfjdbpckaoakgmfdnaijajlniihnlcal)
