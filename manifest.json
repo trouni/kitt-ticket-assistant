@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Kitt Ticket Assistant",
-  "description": "Voice assistant for Kitt's ticketing system to reduce the risk of a ticket going unnoticed for too long.",
+  "description": "Give Kitt a voice to minimize the risk of a ticket going unnoticed for too long.",
   "author": "Trouni Tiet",
   "version": "0.2",
   "icons": {
