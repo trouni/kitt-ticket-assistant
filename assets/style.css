@@ -27,7 +27,7 @@
   cursor: pointer;
 }
 
-#kitt-assistant-modal h3 {
+#kitt-assistant-modal>div {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -47,8 +47,7 @@
   margin: 0 auto 1em auto;
 }
 
-#kitt-assistant-modal h3:after {
-  content: "Click anywhere to dismiss the ticket assistant";
+#kitt-assistant-modal p {
   display: block;
   font-size: 0.8em;
   font-weight: 400;

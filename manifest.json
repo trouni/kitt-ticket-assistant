@@ -16,6 +16,7 @@
         "*://kitt.lewagon.com/camps/*/tickets*"
       ],
       "js": [
+        "scripts/ticket_assistant.js",
         "scripts/content.js"
       ],
       "css": [
