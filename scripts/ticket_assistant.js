@@ -101,7 +101,7 @@ function TicketAssistant() {
     content.insertAdjacentElement("beforeend", heading);
 
     var description = document.createElement("p");
-    description.innerHTML = `This message will automatically disappear in <strong>${activationTimeout}</strong>s...`;
+    description.innerHTML = `Click anywhere to dismiss.<br/>This message will automatically disappear in <strong>${activationTimeout}</strong>s...`;
     content.insertAdjacentElement("beforeend", description);
 
     var button = document.createElement("button");
