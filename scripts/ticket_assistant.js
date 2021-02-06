@@ -2,7 +2,7 @@ function TicketAssistant() {
   this.refreshRate = 500;
   this.notificationRate = 30_000;
   this.ongoingTickets = true;
-  this.onDuty = false;
+  this.onDuty = document.querySelector(".switch-container.is-on-duty") !== null;
   this.beep = new Audio(chrome.runtime.getURL("/assets/notification.mp3"));
   this.synth = window.speechSynthesis;
 
@@ -57,6 +57,7 @@ function TicketAssistant() {
         !document.querySelector(".switch-container.is-on-duty")
       ) {
         this.onDuty = false;
+        this.removeModal();
       }
     }, this.refreshRate);
   };
@@ -101,9 +102,9 @@ function TicketAssistant() {
     content.insertAdjacentElement("beforeend", heading);
 
     var description = document.createElement("p");
-    description.innerHTML = `Click anywhere to dismiss.<br/>This message will automatically disappear in <strong>${activationTimeout}</strong>s...`;
+    description.innerHTML = `Click anywhere to dismiss.`;
     content.insertAdjacentElement("beforeend", description);
-
+    
     var button = document.createElement("button");
     button.innerText = "Yes, activate the assistant";
     button.classList = "btn btn-default";
@@ -112,6 +113,10 @@ function TicketAssistant() {
       this.startAssistant();
     };
     content.insertAdjacentElement("beforeend", button);
+    
+    var description = document.createElement("p");
+    description.innerHTML = `This message will automatically disappear in <strong>${activationTimeout}</strong>s...`;
+    content.insertAdjacentElement("beforeend", description);
 
     var modal = this.createModal(content);
     modal.onclick = this.removeModal;

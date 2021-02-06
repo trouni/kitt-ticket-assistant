@@ -1,3 +1,6 @@
-const assistant = new TicketAssistant()
+const onTicketsPage =
+  window.location.pathname.match(/^\/camps\/\d+\/tickets\/?$/) !== null;
+const assistant = new TicketAssistant();
 
-document.addEventListener("DOMContentLoaded", assistant.initialize);
+if (onTicketsPage)
+  document.addEventListener("DOMContentLoaded", assistant.initialize);
