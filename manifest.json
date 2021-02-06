@@ -3,7 +3,7 @@
   "name": "Kitt Ticket Assistant",
   "description": "Give Kitt a voice to minimize the risk of a ticket going unnoticed for too long.",
   "author": "Trouni Tiet",
-  "version": "0.3",
+  "version": "0.4",
   "icons": {
     "128": "images/lewagon_128px.png"
   },
