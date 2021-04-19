@@ -37,7 +37,7 @@ function TicketAssistant() {
 
     document
       .querySelector(
-        '[data-target="navbar-menu.content"] > ul > li:first-child'
+        '[data-navbar-menu-target="content"] > ul > li:first-child'
       )
       .insertAdjacentElement("afterbegin", assistantToggle);
 
