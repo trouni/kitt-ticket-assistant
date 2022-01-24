@@ -8,7 +8,8 @@
     "128": "images/lewagon_128px.png"
   },
   "web_accessible_resources": [
-    "assets/notification.mp3"
+    "assets/notification_1.mp3",
+    "assets/notification_2.mp3"
   ],
   "content_scripts": [
     {

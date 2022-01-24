@@ -3,7 +3,10 @@ function TicketAssistant() {
   this.notificationRate = 30_000;
   this.ongoingTickets = true;
   this.onDuty = document.querySelector(".switch-container.is-on-duty") !== null;
-  this.beep = new Audio(chrome.runtime.getURL("/assets/notification.mp3"));
+  this.beep = new Audio(chrome.runtime.getURL("/assets/notification_1.mp3"));
+  this.startingSound = new Audio(
+    chrome.runtime.getURL("/assets/notification_2.mp3")
+  );
   this.synth = window.speechSynthesis;
 
   this.initialize = () => {
@@ -174,7 +177,7 @@ function TicketAssistant() {
   };
 
   this.startAssistant = () => {
-    this.beep.play();
+    this.startingSound.play();
     this.assistant = setInterval(() => {
       var ticketDiv = document.querySelector(".ticket.is-mine");
       if (ticketDiv) {
