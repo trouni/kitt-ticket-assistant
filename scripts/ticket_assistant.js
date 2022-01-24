@@ -2,6 +2,7 @@ function TicketAssistant() {
   this.refreshRate = 500;
   this.notificationRate = 30_000;
   this.ongoingTickets = true;
+  this.modalShowing = () => !!document.getElementById("kitt-assistant-modal");
   this.onDuty = document.querySelector(".switch-container.is-on-duty") !== null;
   this.beep = new Audio(chrome.runtime.getURL("/assets/notification_1.mp3"));
   this.startingSound = new Audio(
@@ -17,26 +18,24 @@ function TicketAssistant() {
     this.toggleCheckbox.type = "checkbox";
     this.toggleCheckbox.hidden = true;
 
-    var toggleLabel = document.createElement("label");
-    toggleLabel.htmlFor = this.toggleCheckbox.id;
-    let disabledTooltip = "Ticket assistant is disabled. Click to enable";
-    let enabledTooltip =
+    this.toggleLabel = document.createElement("label");
+    this.toggleLabel.htmlFor = this.toggleCheckbox.id;
+    this.disabledTooltip = "Ticket assistant is disabled. Click to enable";
+    this.enabledTooltip =
       "The ticket assistant will notify you when you have a ticket. Click to disable";
-    toggleLabel.dataset.originalTitle = disabledTooltip;
-    toggleLabel.dataset.toggle = "tooltip";
+    this.toggleLabel.dataset.originalTitle = this.disabledTooltip;
+    this.toggleLabel.dataset.toggle = "tooltip";
 
     this.toggleCheckbox.onchange = () => {
       if (this.toggleCheckbox.checked) {
-        toggleLabel.dataset.originalTitle = enabledTooltip;
         this.startAssistant();
       } else {
-        toggleLabel.dataset.originalTitle = disabledTooltip;
-        clearInterval(this.assistant);
+        this.stoptAssistant();
       }
     };
 
     assistantToggle.insertAdjacentElement("beforeend", this.toggleCheckbox);
-    assistantToggle.insertAdjacentElement("beforeend", toggleLabel);
+    assistantToggle.insertAdjacentElement("beforeend", this.toggleLabel);
 
     document
       .querySelector(
@@ -62,7 +61,7 @@ function TicketAssistant() {
         this.onDuty = false;
         this.removeModal();
       }
-    }, this.refreshRate);
+    }, this.refreshRate * 2);
   };
 
   this.getVoices = () => {
@@ -107,7 +106,7 @@ function TicketAssistant() {
     var description = document.createElement("p");
     description.innerHTML = `Click anywhere to dismiss.`;
     content.insertAdjacentElement("beforeend", description);
-    
+
     var button = document.createElement("button");
     button.innerText = "Yes, activate the assistant";
     button.classList = "btn btn-default";
@@ -116,7 +115,7 @@ function TicketAssistant() {
       this.startAssistant();
     };
     content.insertAdjacentElement("beforeend", button);
-    
+
     var description = document.createElement("p");
     description.innerHTML = `This message will automatically disappear in <strong>${activationTimeout}</strong>s...`;
     content.insertAdjacentElement("beforeend", description);
@@ -132,9 +131,8 @@ function TicketAssistant() {
         document.getElementById("kitt-assistant-modal") &&
         activationTimeout >= 0
       ) {
-        document.querySelector(
-          "#kitt-assistant-modal p > strong"
-        ).innerText = activationTimeout;
+        document.querySelector("#kitt-assistant-modal p > strong").innerText =
+          activationTimeout;
       } else {
         this.removeModal();
         clearInterval(this.expireModalInterval);
@@ -142,7 +140,7 @@ function TicketAssistant() {
     }, 1000);
   };
 
-  this.displayTicketModal = (message) => {
+  this.displayTicketModal = (message, button = null) => {
     var content = document.createElement("div");
 
     var heading = document.createElement("h3");
@@ -152,6 +150,8 @@ function TicketAssistant() {
     var description = document.createElement("p");
     description.innerText = "Click anywhere to dismiss the ticket assistant";
     content.insertAdjacentElement("beforeend", description);
+
+    if (button) content.insertAdjacentElement("beforeend", button);
 
     var modal = this.createModal(content);
     modal.onclick = this.removeModal;
@@ -177,13 +177,41 @@ function TicketAssistant() {
   };
 
   this.startAssistant = () => {
+    this.toggleLabel.dataset.originalTitle = this.enabledTooltip;
     this.startingSound.play();
+    this.toggleCheckbox.checked = true;
     this.assistant = setInterval(() => {
-      var ticketDiv = document.querySelector(".ticket.is-mine");
-      if (ticketDiv) {
+      var unassignedTicket = document.querySelector(
+        ".ticket .ticket-teacher > i.fa-question"
+      );
+      var myTicket = document.querySelector(".ticket.is-mine");
+      if (!this.onDuty && unassignedTicket) {
+        if (!this.modalShowing()) {
+          var message = "There's an unassigned ticket waiting.";
+
+          var buttons = document.createElement("div");
+          buttons.classList.add("ticket-actions", "w-100");
+          var turnOffAssistantBtn = document.createElement("button");
+          turnOffAssistantBtn.innerText = "Turn off the assistant";
+          turnOffAssistantBtn.classList = "btn btn-default btn-sm";
+          turnOffAssistantBtn.onclick = () => this.stopAssistant();
+          buttons.insertAdjacentElement("beforeend", turnOffAssistantBtn);
+          var getOnDutyBtn = document.createElement("button");
+          getOnDutyBtn.innerText = "Put yourself on duty";
+          getOnDutyBtn.classList = "btn btn-blue btn-sm m";
+          getOnDutyBtn.onclick = () => {
+            document.querySelector(".switch").click();
+            this.onDuty = true;
+          };
+          buttons.insertAdjacentElement("beforeend", getOnDutyBtn);
+
+          this.notify(message);
+          this.displayTicketModal(message, buttons);
+        }
+      } else if (myTicket) {
         if (!this.ongoingTickets) {
-          var studentName = ticketDiv.querySelector(".ticket .name").innerText;
-          var ticketNumber = ticketDiv
+          var studentName = myTicket.querySelector(".ticket .name").innerText;
+          var ticketNumber = myTicket
             .querySelector(".ordinal-table .ordinal")
             .innerText.toLowerCase();
           var message = `You've been assigned ${studentName}'s ${ticketNumber}.`;
@@ -196,5 +224,10 @@ function TicketAssistant() {
         this.ongoingTickets = false;
       }
     }, this.refreshRate);
+  };
+  this.stopAssistant = () => {
+    this.toggleCheckbox.checked = false;
+    this.toggleLabel.dataset.originalTitle = this.disabledTooltip;
+    clearInterval(this.assistant);
   };
 }
