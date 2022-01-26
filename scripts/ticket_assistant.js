@@ -30,7 +30,7 @@ function TicketAssistant() {
       if (this.toggleCheckbox.checked) {
         this.startAssistant();
       } else {
-        this.stoptAssistant();
+        this.stopAssistant();
       }
     };
 
